@@ -11,7 +11,7 @@
     More info at: http://lesselements.com
 -----------------------------------------------------*/
 
-.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) when not (@color = 'none') {
   background: @color;
   background: -webkit-gradient(linear,
                                left bottom,
@@ -25,7 +25,10 @@
                                    @start 0%,
                                    @stop 100%);
 }
-.bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
+.gradient(@none) when (@none = 'none') {
+  background: transparent none;
+}
+.bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) when not (@color = 'none')  {
   background: @color;
   background: -webkit-gradient(linear,
                                left bottom,
@@ -39,22 +42,38 @@
                                    rgb(@start,@start,@start) 0%,
                                    rgb(@stop,@stop,@stop) 100%);
 }
-.bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
+.bw-gradient(@none) when (@none = 'none') {
+  .gradient(@none);
+}
+.bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) when not (@top-color = 'none') {
   border-top: solid 1px @top-color;
   border-left: solid 1px @left-color;
   border-right: solid 1px @right-color;
   border-bottom: solid 1px @bottom-color;
 }
-.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+.bordered(@none) when (@none = 'none') {
+  border: none;
+}
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) when not (@x-axis = 'none') {
   -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
   -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
   box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
 }
-.rounded(@radius: 2px) {
+.drop-shadow(@none) when (@none = 'none') {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.rounded(@radius: 2px) when not (@radius = 'none') {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
   border-radius: @radius;
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+}
+.rounded(@none) when (@none = 'none') {
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  border-radius: none;
 }
 .border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
   -webkit-border-top-right-radius: @topright;
